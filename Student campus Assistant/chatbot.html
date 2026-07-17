@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+<title>Campus Chatbot</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#667eea,#764ba2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.chat-container{
+width:450px;
+background:white;
+border-radius:15px;
+padding:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+h2{
+text-align:center;
+margin-bottom:15px;
+}
+
+#chatbox{
+height:350px;
+overflow-y:auto;
+border:1px solid #ddd;
+padding:10px;
+margin-bottom:10px;
+}
+
+input{
+width:70%;
+padding:10px;
+}
+
+button{
+padding:10px;
+background:#764ba2;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.quick button{
+margin:5px;
+}
+
+</style>
+
+</head>
+<script src="js/chatbot.js"></script>
+<body>
+
+<div class="chat-container">
+
+<h2>🤖 Campus Assistant</h2>
+
+<div id="chatbox">
+<p><b>Bot:</b> Welcome Student! Ask me about Admission, Courses, Library, Hostel, Fees, Placement or Events.</p>
+</div>
+
+<div class="quick">
+<button onclick="quickReply('admission')">Admission</button>
+<button onclick="quickReply('courses')">Courses</button>
+<button onclick="quickReply('library')">Library</button>
+<button onclick="quickReply('placement')">Placement</button>
+</div>
+
+<input type="text" id="userInput">
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+<script>
+
+function quickReply(text){
+document.getElementById("userInput").value=text;
+sendMessage();
+}
+
+function sendMessage(){
+
+let input=document.getElementById("userInput").value.toLowerCase();
+
+let response="";
+
+if(input.includes("admission")){
+response="Admission requires marksheets, ID proof and application form.";
+}
+else if(input.includes("course")){
+response="Available courses include Computer Engineering, AI&DS, IT, Civil and Mechanical.";
+}
+else if(input.includes("library")){
+response="Library timing is 9 AM to 5 PM. Students may borrow 3 books.";
+}
+else if(input.includes("placement")){
+response="Average package is 6 LPA and highest package is 18 LPA.";
+}
+else if(input.includes("hostel")){
+response="Separate hostel facilities are available for boys and girls.";
+}
+else if(input.includes("fees")){
+response="Fees vary according to the course selected.";
+}
+else if(input.includes("event")){
+response="Upcoming event is Hackathon 2026.";
+}
+else{
+response="Sorry, I didn't understand. Please select Admission, Courses, Library, Fees, Hostel or Placement.";
+}
+
+let chatbox=document.getElementById("chatbox");
+
+chatbox.innerHTML += "<p><b>You:</b> "+input+"</p>";
+chatbox.innerHTML += "<p><b>Bot:</b> "+response+"</p>";
+
+document.getElementById("userInput").value="";
+
+chatbox.scrollTop=chatbox.scrollHeight;
+
+}
+
+</script>
+
+</body>
+</html>

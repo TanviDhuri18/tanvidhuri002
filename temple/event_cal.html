@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffeccc;
+      margin: 0;
+      padding-top: 60px; /* to push content below fixed navbar */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    /* Navbar Styling */
+    .menu {
+      background-color: #0b81b8;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .menu a {
+      float: left;
+      color: white;
+      padding: 14px 16px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .menu a:hover {
+      background-color: #006f9c;
+    }
+
+    .calendar {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 800px;
+      width: 95%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day, .date {
+      padding: 10px;
+      background: #e9ecef;
+      border-radius: 5px;
+    }
+
+    .day {
+      background: #6c757d;
+      color: white;
+      font-weight: bold;
+    }
+
+    .date {
+      background: #d1e7dd;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .date:hover {
+      background: #badbcc;
+    }
+
+    .event {
+      background: #ffcccb;
+      padding: 5px;
+      margin-top: 3px;
+      font-size: 12px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="menu">
+    <a href="gajanan_maharaj.html">मंदिर </a>
+    <a href="about_us.html">मंदिरा विषयी</a>
+    <a href="event_cal.html">कार्यक्रम दिनदर्शिका</a>
+    <a href="dengi.html">देणगी</a>
+    <a href="contact.html">संपर्क करा</a>
+    <a href="registartion1.html">नोंदणी</a>
+    <a href="gallery.html">फोटो गॅलरी</a>
+  </nav>
+
+  <!-- ✅ Calendar -->
+  <div class="calendar">
+    <div class="header">
+      <select id="month"></select>
+      <select id="year"></select>
+    </div>
+    <div class="days" id="calendar"></div>
+  </div>
+
+  <script>
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+
+    const monthSelect = document.getElementById('month');
+    const yearSelect = document.getElementById('year');
+    const calendar = document.getElementById('calendar');
+
+    months.forEach((month, index) => {
+      monthSelect.innerHTML += `<option value="${index}" ${index === currentMonth ? 'selected' : ''}>${month}</option>`;
+    });
+
+    for (let y = currentYear; y <= currentYear + 10; y++) {
+      yearSelect.innerHTML += `<option value="${y}" ${y === currentYear ? 'selected' : ''}>${y}</option>`;
+    }
+
+    const loadEvents = () => JSON.parse(localStorage.getItem('events')) || {};
+
+    const saveEvent = (dateKey, event) => {
+      const events = loadEvents();
+      events[dateKey] = event;
+      localStorage.setItem('events', JSON.stringify(events));
+    };
+
+    const renderCalendar = (month, year) => {
+      calendar.innerHTML = "";
+      daysOfWeek.forEach(day => {
+        calendar.innerHTML += `<div class="day">${day}</div>`;
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        calendar.innerHTML += `<div class="day"></div>`;
+      }
+
+      for (let date = 1; date <= lastDate; date++) {
+        const dateKey = `${year}-${month + 1}-${date}`;
+        const events = loadEvents();
+        const event = events[dateKey];
+
+        calendar.innerHTML += `
+          <div class="date" onclick="addEvent('${dateKey}', this)">
+            ${date}
+            ${event ? `<div class="event">${event}</div>` : ""}
+          </div>
+        `;
+      }
+    };
+
+    function addEvent(dateKey, element) {
+      const existingEvent = element.querySelector('.event') ? element.querySelector('.event').textContent : null;
+      const action = existingEvent ? "Edit" : "Add";
+      const newEvent = prompt(`${action} event for ${dateKey}:`, existingEvent);
+
+      if (newEvent !== null) {
+        if (newEvent.trim() === '') {
+          deleteEvent(dateKey);
+        } else {
+          saveEvent(dateKey, newEvent);
+        }
+        renderCalendar(parseInt(monthSelect.value), parseInt(yearSelect.value));
+      }
+    }
+
+    function deleteEvent(dateKey) {
+      const events = loadEvents();
+      delete events[dateKey];
+      localStorage.setItem('events', JSON.stringify(events));
+    }
+
+    monthSelect.addEventListener('change', () =>
+      renderCalendar(parseInt(monthSelect.value), parseInt(yearSelect.value))
+    );
+    yearSelect.addEventListener('change', () =>
+      renderCalendar(parseInt(monthSelect.value), parseInt(yearSelect.value))
+    );
+
+    renderCalendar(currentMonth, currentYear);
+  </script>
+</body>
+</html>

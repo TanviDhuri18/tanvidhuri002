@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Viewport" content="width-=device-width, intial-scale=1.0, Viewport-fit=cover">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .menu{
+            background-color: orange;
+            overflow: hidden;
+        }
+
+        .menu{
+            background-color:#0b81b8 ;
+            overflow: hidden;
+        }
+
+        .menu a{
+            float: left;
+            color: white;
+            padding: 14px 16px;
+            text-align: center;
+            text-decoration: none;
+            font: 17px;
+        }
+        
+        .mybeautiful{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #0b81b8;
+            color: white;
+        
+        }
+
+        .fa{
+            padding: 10px;
+            font-size: 7px;
+            width: 7px;
+            text-align: center;
+            text-align: none;
+            border-radius: 25%;
+         }
+        .fa:hover{
+            opacity: 0.7;
+
+        }
+        .fa-facebook{
+            background-color: #3b5998;
+            color: white;
+        }
+        .fa-github{
+            background-color: black;
+            color: white;
+        }
+        .fa-twitter{
+            background-color: #55acee;
+            color: white;
+        }
+
+        body{
+            background-color:#ffeccc;
+        }
+
+        .myslides{
+            height: 500px;
+            max-width: 95%;
+            float: center;
+            object-fit: center;
+            padding: 20px 50pxs;
+            padding-left: 30px;
+
+        }
+        h2{
+            text-align: center;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+    <nav class="menu">
+            <a href="about_us.html">मंदिरा विषयी</a>
+            <!-- <a href="celebration.html">CELEBRATION</a> -->
+            <a href="event_cal.html">कार्यक्रम दिनदर्शिका </a>
+            <a href="dengi.html">देणगी</a>
+            <a href="contact.html">संपर्क करा </a>
+            <a href="registartion1.html">नोंदणी</a>
+            <a href="gallery.html">फोटो गॅलरी </a>
+    </nav>
+
+    <section>
+        <img class="myslides" src="img3 - Copy.jpg" style="width: 100%;">
+        <img class="myslides" src="img2 - Copy.jpg" style="width: 100%;">
+    </section>
+
+    <script>
+        var myIndex=0;
+        carousel();
+        function carousel()
+        {
+            var j;
+            var x=document.getElementsByClassName("myslides");
+            for(j=0;j<x.length;j++)
+            {
+                x[j].style.display="none";
+            }
+            myIndex++;
+            if(myIndex>x.length){myIndex=1}
+            x[myIndex -1].style.display="block"
+            setTimeout(carousel,3000);
+        }
+    </script>
+
+
+
+
+    <section style="width:100%;height: 100%;">
+        
+        <h2 textalign="center"> श्री गजानन महाराज मंदिर</h2>
+<p>श्री गजानन महाराज मंदिर हे महाराष्ट्रातील शेगाव (जिल्हा बुलढाणा) येथे स्थित असून, हे मंदिर गजानन महाराजांचं प्रमुख मंदिर म्हणून ओळखलं जातं. हे मंदिर संपूर्ण भारतात प्रसिद्ध असून, दररोज हजारो भाविक येथे दर्शनासाठी येतात.
+
+    गजानन महाराज हे एक भारतीय हिंदू गुरु, संत आणि योगी होते. त्यांचा उगम अज्ञात आहे. ते प्रथम महाराष्ट्रातील बुलढाणा जिल्ह्यातील शेगाव या गावात, अंदाजे ३० वर्षांचे असताना, २३ फेब्रुवारी १८७८ रोजी प्रकट झाले. त्यांनी ८ सप्टेंबर १९१० रोजी संजीवनी समाधी प्राप्त केली, जी आपल्या शरीराबाहेर स्वेच्छेने जाण्याची एक आध्यात्मिक प्रक्रिया मानली जाते. त्यांच्या समाधीचा हा दिवस दरवर्षी "श्री पुण्यतिथी उत्सव" म्हणून साजरा केला जातो. त्यांचा प्रकट दिवस एक पवित्र दिवस मानला जातो आणि "प्रकट दिन सोहळा म्हणून मोठ्या श्रद्धेने साजरा केला जातो.अणि याचे प्रती मंदिर म्हणून प्रसिद्ध असलेले श्री गजानन महाराज मठ मळेवाड येथे स्थित आहे.
+
+</p>        
+    </section>
+
+  <!--  <footer class="mybeautiful">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-github"></a>
+        <a href="#" class="fa fa-twitter"></a>
+    </footer>  -->
+
+</body>
+
+
+</html>
+
+
